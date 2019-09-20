@@ -29,7 +29,7 @@ Aplicacion Veterinaria.
 
     5.Abrir el src en un editor de texto, una vez abierto el src buscar la carpeta probar para editar
     el settings.py. 
-    Cambiar en settings.py la cadena de conexi´ón (Línea 93), nombre de la base de datos, 
+    Cambiar en settings.py la cadena de conexi´ón (Línea 88), nombre de la base de datos, 
     nombre del usuario, contraseña, host y puerto.
 
     6.Hacer migraciones a la base de datos desde el cmd en Windows o terminal en Linux.
