@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrapLogin.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <!-- Nuevo importe -->
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+  </head>
+  <body >
+  
+    {% include "base/navbar.html" %}
+    {% block content %}
+    {% endblock content %}
+    <br>
+    <br>
+    <footer class="page-footer font-small">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2019 Todos los derechos reservados
+    <a href="http://oferta.senasofiaplus.edu.co/sofia-oferta/inicio-sofia-plus.html"> SENA</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+<div class="loader-page"></div>
+  </body>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/javaScript' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/loader.js' %}"></script>
+</html>

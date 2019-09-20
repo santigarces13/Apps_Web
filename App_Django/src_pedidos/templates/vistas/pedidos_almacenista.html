@@ -1,0 +1,74 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/listas.css' %}">
+<br>
+<div class="text-center">
+    <h1 class="section-title-underline mb-5">
+      <span class="text-dark">Lista de pedidos</span>
+    </h1>
+</div>
+
+<div class="wrapper">
+  <div class="table">
+    <div class="row header">
+      <div class="cell">
+        Id
+      </div>
+      <div class="cell">
+        Ultima modificacion
+      </div>
+      <div class="cell">
+        Area
+      </div>
+      <div class="cell">
+        Estado del pedido
+      </div>
+      <div class="cell">
+        Nota del pedido
+      </div>
+      <div class="cell">
+        Responsable
+      </div>
+      <div class="cell">
+        Información pedido
+      </div>
+    </div>
+    {% if pedidos %}
+        {% for pedido in pedidos %}
+          <div class="row">
+            <div class="cell" data-title="Id">
+                {{pedido.checkpoint}}
+            </div>
+            <div class="cell" data-title="Ultima modificacion">
+                {{pedido.fecha_novedad}}
+            </div>
+            <div class="cell" data-title="Area">
+                {{pedido.area_pedido_r}}
+            </div>
+            <div class="cell" data-title="Estado del pedido">
+                {{pedido.estado_r_id}}
+            </div>
+            <div class="cell" data-title="Estado del pedido">
+                {{pedido.nota_pedido}}
+            </div>
+            <div class="cell" data-title="Estado del pedido">
+                {{pedido.responsable_r}}
+            </div>
+            <div class="cell" data-title="Información pedido">
+                <a class="btn" href="{% url 'inicio:buscar_pedido_almacenista' pedido.checkpoint %}"><em class="fa fa-lg fa-search"></em></a>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <h2 class="text-dark">No hay pedidos por revisar</h2>
+      {% endif %}
+</div>
+
+<a class="btn btn-primary" href="{% url 'inicio:index' %}">Regresar</a>
+
+
+
+
+{% endblock content %}

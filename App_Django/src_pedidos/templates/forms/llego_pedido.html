@@ -1,0 +1,42 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<br>
+<div class="row justify-content-center text-center">
+    <h1 class="section-title-underline mb-5">
+      <span class="text-dark">Entregar pedido</span>
+    </h1>
+</div>
+  <div class="container">
+   <div class="container px-2 b-2">
+      <div class="alert alert-primary" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>¡Importante!</strong> Para cambiar el estado del pedido a entregando solo oprima el boton entregando pedido.
+      </div>
+    </div>
+    <form method="POST">{% csrf_token %}
+        <h5>Realmente quiere entregar el pedido?</h5>
+        <p>Si realmente quiere entregar el pedido solo oprima el boton que dice entregar pedido.</p>
+        <div class="form-group">
+          <input type="hidden" name="fecha_novedad" value="{% now "d/m/Y" %}">
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="responsable_r" value="{{object.responsable_r_id}}" >
+        </div>
+         <div class="form-group" >
+            <input type="hidden" name="estado_r" value="{{'Entregando'}}">
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="area_pedido_r" value="{{object.area_pedido_r_id}}">
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="rol_pedido_r" value="{{"6"}}">
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="nota_pedido" value="{{"N/A"}}">
+        </div>
+        <a class="btn btn-primary" href="{% url 'inicio:buscar_pedido_almacenista' object.checkpoint %}">Cancelar</a>
+        <button type="submit" class="btn btn-success">Entregando pedido</button>
+    </form>
+</div>
+{% endblock content %}

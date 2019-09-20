@@ -1,0 +1,29 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<br>
+<div class="row justify-content-center text-center">
+    <h1 class="section-title-underline mb-5">
+        <span class="text-dark">Eliminar articulo</span>
+    </h1>
+</div>
+<div class="container px-2 b-2">
+    <div class="alert alert-primary" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>¡Importante!</strong> Para eliminar el material solo oprima el botón eliminar articulo.
+    </div>
+</div>
+<div class="container">
+    <form method="POST"> {% csrf_token %}
+        {% for pedido in pedidos %}
+            <h5>Desea eliminar el articulo {{ pedido.codigo_articulo_r.nombre_articulo }}?</h5>
+            <p>Si realmente quiere eliminar el articulo solo oprima el botón que dice eliminar articulo.</p>
+        {% endfor %}
+        {% for guia in guias %}
+            <a class="btn btn-primary" href="{% url 'inicio:buscar_pedido' guia.checkpoint %}">Cancelar</a>
+        {% endfor %}    
+            <button type="submit" class="btn btn-danger">Eliminar articulo</button>
+    </form>
+</div>
+    
+{% endblock content %}

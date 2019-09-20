@@ -1,0 +1,57 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<br>
+<div class="row justify-content-center text-center">
+    <h1 class="section-title-underline mb-5">
+      <span class="text-dark">Creación o actualización de un articulo</span>
+    </h1>
+</div>
+  <div class="container">
+   <div class="container px-2 b-2">
+      <div class="alert alert-primary" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>¡Importante!</strong> Para crear o actualizar el articulo solo oprima el boton guardar articulo.
+      </div>
+    </div>
+    <form method="POST">{% csrf_token %}
+        <h5>Realmente quiere crear o actualizar el articulo?</h5>
+        <p>Si realmente lo quiere hacer solo oprima el boton que dice guardar articulo.</p>
+        <div class="form-group">
+            <label for="{{form.codigo_articulo.name}}">{{form.codigo_articulo.label}}</label>
+            {{form.codigo_articulo}}
+        </div>
+        <div class="form-group">
+            <label for="{{form.nombre_articulo.name}}">{{form.nombre_articulo.label}}</label>
+            {{form.nombre_articulo}}
+        </div>
+        <div class="form-group" >
+            <label for="{{form.fabricante.name}}">{{form.fabricante.label}}</label>
+            {{form.fabricante}}
+        </div>
+        <div class="form-group">
+            <label for="{{form.ficha_tecnica.name}}">{{form.ficha_tecnica.label}}</label>
+            {{form.ficha_tecnica}}
+        </div>
+        <div class="form-group">
+        
+            <label for="{{form.valor.name}}">{{form.valor.label}}</label>
+            {{form.valor}}
+        </div>
+        <div class="form-group">
+            <label for="{{form.unidad_metrica_r.name}}">{{form.unidad_metrica_r.label}}</label>
+            {{form.unidad_metrica_r}}
+        </div>
+        <div class="form-group">
+            <label for="{{form.lote_articulo_r.name}}">{{form.lote_articulo_r.label}}</label>
+            {{form.lote_articulo_r}}
+        </div>
+        <div class="form-group">
+            <label for="{{form.tipo_elemento_r.name}}">{{form.tipo_elemento_r.label}}</label>
+            {{form.tipo_elemento_r}}
+        </div>
+        <a class="btn btn-primary" href="{% url 'inicio:index' %}">Regresar</a>
+        <button type="submit" class="btn btn-success">Guardar articulo</button>
+    </form>
+    </div>
+{% endblock content %}

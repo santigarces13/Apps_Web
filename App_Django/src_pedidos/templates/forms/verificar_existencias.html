@@ -1,0 +1,99 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/listas.css' %}">
+<br>
+<div class="text-center">
+    <h1 class="section-title-underline mb-5">
+      <span class="text-dark">Lista para verificar existencias al pedido</span>
+    </h1>
+</div>
+
+<div class="container">
+   <div class="container px-2 b-2">
+      <div class="alert alert-primary" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>¡Importante!</strong> Cuando quiera agregar una existencia solo indique la cantidad y oprima al botón verificar.
+      </div>
+</div>
+
+<div class="container">
+   <div class="container px-2 b-2">
+      <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>¡Importante!</strong> No agregar mas existencias que la cantidad requerida.
+      </div>
+</div>
+
+<div class="wrapper">
+    <div class="pull-right">
+        <form method="GET">
+        <input type="text" name="nombre_articulo__icontains" placeholder="Nombre producto" id="id_nombre_articulo__icontains">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
+<div class="wrapper">
+    <div class="table">
+        <div class="row header">
+            <div class="cell">
+                Codigo articulo
+            </div>
+            <div class="cell">
+                Fecha ultima modificación
+            </div>
+            <div class="cell">
+                Cantidad requerida
+            </div>
+            <div class="cell">
+                Existencias
+            </div>
+        </div>
+        {% if materiales %}
+            {% for material in materiales %}
+                <div class="row">
+                    <div class="cell" data-title="Codigo producto">
+                        {{material.codigo_articulo_r}}
+                    </div>
+                    <div class="cell" data-title="Ultima modificacion">
+                        {{material.fecha_pedido}}
+                    </div>
+                    <div class="cell" data-title="Cantidad">
+                        {{material.cantidad_requerida}}
+                    </div>
+                    <form method="POST">{% csrf_token %}
+
+                        <input type="hidden" name="codigo_pedido" value="{{material.codigo_pedido}}">
+                        <input type="hidden" name="fecha_pedido" value="{% now "d/m/Y" %}">
+                        <input type="hidden" name="cantidad_requerida" value="{{material.cantidad_requerida}}">
+                        <div class="cell" data-title="Existencias">
+                            <input type="number" min="0" style="width:50px;height:30px" name="existencias" value="{{material.existencias}}">
+                        </div>
+
+
+                        <input type="hidden" name="responsable_r" value="{{object.responsable_r_id}}" >
+                        <input type="hidden" name="codigo_articulo_r" value="{{material.codigo_articulo_r_id}}" >
+                        {% for pedido in pedidos %}
+                            <input type="hidden" name="pedido_guia_r" value="{{pedido.checkpoint}}">
+
+
+                        {% endfor %}
+                        <div class="cell" data-title="Verificar existencia">
+                            <button type="submit" class="btn btn-success">Verificar</button>
+                        </div>
+                    </form>
+
+                </div>
+            {% endfor %}
+        {% else %}
+            <h2 class="text-white">No hay materiales agregados</h2>
+        {% endif %}
+
+    </div>
+    {% for pedido in pedidos %}
+        <a class="btn btn-primary" href="{% url 'inicio:buscar_pedido_almacenista' pedido.checkpoint%}">Regresar</a>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}

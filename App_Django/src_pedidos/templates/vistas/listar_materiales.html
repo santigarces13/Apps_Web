@@ -1,0 +1,96 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/listas.css' %}">
+<br>
+<div class="text-center">
+    <h1 class="section-title-underline mb-5">
+        <span class="text-dark">Lista de productos</span>
+    </h1>
+</div>
+<div class="wrapper">
+    <div class="pull-right">
+        <form method="GET">
+            <input type="text" name="nombre_articulo__icontains" placeholder="Nombre producto" id="id_nombre_articulo__icontains">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
+    <div class="table">
+        <div class="row header">
+        <div class="cell">
+            Codigo articulo
+        </div>
+        <div class="cell">
+            Nombre articulo
+        </div>
+        <div class="cell">
+            Fabricante
+        </div>
+        <div class="cell">
+            Ficha tecnica
+        </div>
+        <div class="cell">
+            Unidad metrica
+        </div>
+        <div class="cell">
+            Lote articulo
+        </div>
+        <div class="cell">
+            Tipo de elemento
+        </div>
+        {% if perms.app_usuarios.is_gestor_de_area %}
+            <div class="cell">
+                Valor unitario
+            </div>
+            <div class="cell">
+                Editar articulo
+            </div>
+           
+        {% endif %}
+    </div>
+    {% if filter %}
+        {% for material in filter.qs %}
+            <div class="row">
+                <div class="cell" data-title="Codigo articulo">
+                    {{material.codigo_articulo}}
+                </div>
+                <div class="cell" data-title="Nombre articulo">
+                    {{material.nombre_articulo}}
+                </div>
+                <div class="cell" data-title="Fabricante">
+                    {{material.fabricante}}
+                </div>
+                <div class="cell" data-title="Ficha tecnica">
+                    {{material.ficha_tecnica}}
+                </div>
+                <div class="cell" data-title="Unidad metrica">
+                    {{material.unidad_metrica_r}}
+                </div>
+                <div class="cell" data-title="Lote articulo">
+                    {{material.lote_articulo_r}}
+                </div>
+                <div class="cell" data-title="Tipo elemento">
+                    {{material.tipo_elemento_r}}
+                </div>
+                {% if perms.app_usuarios.is_gestor_de_area %}
+                    <div class="cell" data-title="Tipo elemento">
+                        {{material.valor}}
+                    </div>
+                    <div class="cell">
+                        <a class="btn btn-success" href="{% url 'inicio:actualizar_articulo_gestor' material.codigo_articulo %}">Editar</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+      {% else %}
+        <h2 class="text-white">No hay materiales creados</h2>
+      {% endif %}
+</div>
+
+<a class="btn btn-primary" href="{% url 'inicio:index' %}">Regresar</a>
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,151 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/listas.css' %}">
+<br>
+<div class="text-center">
+    <h1 class="section-title-underline mb-5">
+      <span class="text-dark">Información del pedido</span>
+    </h1>
+</div>
+<div class="container">
+    {% if pedidos %}
+        {% for pedido in pedidos %}
+            <ul class="list-group">
+                <li class="list-group-item active">Informacion completa del pedido</li>
+                <li class="list-group-item">Fecha novedad del pedido: {{pedido.fecha_novedad}}</li>
+                <li class="list-group-item">Responsable del pedido: {{pedido.responsable_r}}</li>
+                <li class="list-group-item">Estado del pedido: {{pedido.estado_r}}</li>
+                <li class="list-group-item">Area del pedido: {{pedido.area_pedido_r}}</li>
+                <li class="list-group-item">Esta en revisión por: {{pedido.rol_pedido_r}}</li>
+                <li class="list-group-item">Nota pedido: {{pedido.nota_pedido}}</li>
+                {% if perms.app_usuarios.is_coordinador_misional %}
+                    <li class="list-group-item">Precio pedido: {{precio}}</li>
+                {% endif %}
+            </ul>
+            <br>
+            {% if perms.app_usuarios.is_instructor %}
+                {% if pedido.estado_r_id == "Borrador" %}
+                    <a class="btn btn-primary" href="{% url 'inicio:listar_pedido'  %}">Regresar</a>
+                    <a class="btn btn-info" href="{% url 'inicio:agregar_material' pedido.checkpoint %}">Agregar materiales</a>
+                    <a class="btn btn-success" href="{% url 'inicio:enviar_pedido' pedido.checkpoint %}">Enviar pedido</a>
+                {% endif %}
+                {% if pedido.estado_r_id == "Rechazado" %}
+                    <a class="btn btn-primary" href="{% url 'inicio:listar_pedido'  %}">Regresar</a>
+                    <a class="btn btn-info" href="{% url 'inicio:agregar_material' pedido.checkpoint %}">Agregar materiales</a>
+                    <a class="btn btn-success" href="{% url 'inicio:enviar_pedido' pedido.checkpoint %}">Enviar pedido</a>
+                {% endif %}
+                {% if pedido.estado_r_id == "Enviado" %}
+                    <a class="btn btn-primary" href="{% url 'inicio:listar_pedido'  %}">Regresar</a>
+                {% endif %}
+            {% endif %}
+
+            {% if perms.app_usuarios.is_cordinador_academico %}
+                    <a class="btn btn-primary" href="{% url 'inicio:listar_pedido_academico'  %}">Regresar</a>
+                    <a class="btn btn-success" href="{% url 'inicio:aceptar_pedido_academico' pedido.checkpoint %}">Aceptar pedido</a>
+                    <a class="btn btn-danger" href="{% url 'inicio:rechazar_pedido_academico' pedido.checkpoint %}">Rechazar pedido</a>
+            {% endif %}
+            {% if perms.app_usuarios.is_coordinador_misional %}
+                    <a class="btn btn-primary" href="{% url 'inicio:listar_pedido_misional'  %}">Regresar</a>
+                    <a class="btn btn-success" href="{% url 'inicio:aceptar_pedido_misional' pedido.checkpoint %}">Aceptar pedido</a>
+                    <a class="btn btn-danger" href="{% url 'inicio:rechazar_pedido_misional' pedido.checkpoint %}">Rechazar pedido</a>
+            {% endif %}
+            {% if perms.app_usuarios.is_subdirector %}
+                    <a class="btn btn-primary" href="{% url 'inicio:listar_pedido_subdirector'  %}">Regresar</a>
+                    <a class="btn btn-success" href="{% url 'inicio:aceptar_pedido_subdirector' pedido.checkpoint %}">Aceptar pedido</a>
+                    <a class="btn btn-danger" href="{% url 'inicio:rechazar_pedido_subdirector' pedido.checkpoint %}">Rechazar pedido</a>
+            {% endif %}
+            {% if perms.app_usuarios.is_almacenista %}
+                {% if pedido.estado_r_id == "Entregando" %}
+                    <a class="btn btn-primary" href="{% url 'inicio:listar_pedido_almacenista'  %}">Regresar</a>
+                    <a class="btn btn-info " href="{% url 'inicio:reporte_pedido_pdf' pedido.checkpoint pedido.area_pedido_r_id %}">Reporte PDF</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'inicio:listar_pedido_almacenista'  %}">Regresar</a>
+                    <a class="btn btn-success" href="{% url 'inicio:verificar_existencias' pedido.checkpoint %}">Verificar existencias</a>
+                    <a class="btn btn-success" href="{% url 'inicio:llego_pedido' pedido.checkpoint %}">Llego pedido</a>
+                    <a class="btn btn-info " href="{% url 'inicio:reporte_pedido_pdf' pedido.checkpoint pedido.area_pedido_r_id %}">Reporte PDF</a>
+                {% endif %}
+
+
+
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+
+<br>
+<div class="text-center">
+    <h1 class="section-title-underline mb-5">
+      <span class="text-dark">Lista de materiales del pedido</span>
+    </h1>
+</div>
+
+<div class="wrapper">
+    <div class="table">
+        <div class="row header">
+            <div class="cell">
+                Codigo articulo
+            </div>
+            <div class="cell">
+                Fecha ultima modificación
+            </div>
+            <div class="cell">
+                Cantidad requerida
+            </div>
+            <div class="cell">
+                Existencias
+            </div>
+            {% for pedido in pedidos %}
+                {% if pedido.estado_r_id == "Borrador" %}
+                    <div class="cell">
+                        Eliminar articulo
+                    </div>
+                {% endif %}
+                {% if pedido.estado_r_id == "Rechazado" %}
+                    <div class="cell">
+                        Eliminar articulo
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+           
+        </div>
+        {% if materiales %}
+            {% for material in materiales %}
+                <div class="row">
+                    <div class="cell" data-title="Codigo producto">
+                        {{material.codigo_articulo_r}}
+                    </div>
+                    <div class="cell" data-title="Ultima modificacion">
+                        {{material.fecha_pedido}}
+                    </div>
+                    <div class="cell" data-title="Cantidad">
+                        {{material.cantidad_requerida}}
+                    </div>
+                    <div class="cell" data-title="Existencias">
+                        {{material.existencias}}
+                    </div>
+                    {% for pedido in pedidos %}
+                        {% if pedido.estado_r_id == "Borrador" %}
+                            <div class="cell" data-title="Eliminar material">
+                                <td align="center"><a class="btn" href="{% url 'inicio:eliminar_material' material.codigo_pedido pedido.checkpoint %}"><em class="fa fa-2x fa-trash"></em></a></td>
+                            </div>
+
+                        {% endif %}
+                        {% if pedido.estado_r_id == "Rechazado" %}
+                            <div class="cell" data-title="Eliminar material">
+                                <td align="center"><a class="btn" href="{% url 'inicio:eliminar_material' material.codigo_pedido pedido.checkpoint %}"><em class="fa fa-2x fa-trash"></em></a></td>
+                            </div>
+                        {% endif %}
+
+                    {% endfor %}
+                   
+                </div>
+            {% endfor %}
+        {% else %}
+            <h2 class="text-white">No hay materiales agregados</h2>
+        {% endif %}
+    </div>
+</div>
+<br>
+{% endblock content %}

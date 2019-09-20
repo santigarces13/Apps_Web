@@ -1,0 +1,42 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<br>
+<div class="row justify-content-center text-center">
+    <h1 class="section-title-underline mb-5">
+      <span class="text-dark">Creación de nuevo pedido</span>
+    </h1>
+</div>
+  <div class="container">
+   <div class="container px-2 b-2">
+      <div class="alert alert-primary" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>¡Importante!</strong> Para crear el pedido solo oprima el botón crear pedido.
+      </div>
+    </div>
+    <form method="POST">{% csrf_token %}
+        <h5>Realmente quiere crear el pedido?</h5>
+        <p>Si realmente quiere crear el pedido solo oprima el botón que dice crear pedido.</p>
+        <div class="form-group">
+          <input type="hidden" name="fecha_novedad" value="{% now "d/m/Y" %}">
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="responsable_r" value="{{user.id}}" >
+        </div>
+         <div class="form-group" >
+            <input type="hidden" name="estado_r" value="{{'Borrador'}}" >
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="area_pedido_r" value="{{user.area_r_id}}" >
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="rol_pedido_r" value="{{user.roll_r_id}}">
+        </div>
+        <div class="form-group">
+          <input type="hidden" name="nota_pedido" value="{{"N/A"}}">
+        </div>
+        <a class="btn btn-primary" href="{% url 'inicio:index' %}">Regresar</a>
+        <button type="submit" class="btn btn-success">Crear pedido</button>
+    </form>
+    </div>
+{% endblock content %}

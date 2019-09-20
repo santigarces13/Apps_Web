@@ -1,0 +1,23 @@
+{% extends "base/base.html" %}
+{% block content %}
+<br>
+<div class="row justify-content-center text-center">
+    <h1 class="section-title-underline mb-5">
+        <span class="text-dark">Eliminar pedido</span>
+    </h1>
+</div>
+<div class="container">
+    <div class="container px-2 b-2">
+        <div class="alert alert-primary" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>¡Importante!</strong> Para eliminar el pedido solo oprima el botón eliminar pedido.
+        </div>
+    </div>
+    <form method="POST"> {% csrf_token %}
+        <h5>Desea eliminar el pedido de {{ object.responsable_r }}?</h5>
+        <p>Si realmente quiere eliminar el pedido solo oprima el botón que dice eliminar pedido.</p>
+        <a class="btn btn-success" href="{% url 'inicio:listar_pedido' %}">Cancelar</a>
+        <button type="submit" class="btn btn-danger">Eliminar pedido</button>
+  </form>
+</div>
+{% endblock content %}

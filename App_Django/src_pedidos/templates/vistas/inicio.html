@@ -1,0 +1,249 @@
+{% extends "base/base.html" %}
+{% block content %}
+<br>
+<div class="overflow-auto">
+
+<!--================== INICIO PARA EL INSTRUCTOR ==================-->
+{% if perms.app_usuarios.is_instructor %}
+<div class="container">
+  <div class="row mb-4 justify-content-center text-center">
+    <div class="mb-5">
+      <h1 class="section-title-underline mb-5">
+        <span class="text-dark">Bienvenido {{request.user.roll_r}}</span>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light" >
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-plus text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Crear pedido</h2>
+          <p class="grayy">En esta opción podras crear un nuevo pedido de tu area asignada.</p>
+          <p><a href="{% url 'inicio:crear_pedido' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light">
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-th-list text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Listar pedido</h2>
+          <p class="grayy">En esta opción podras listar tus pedidos creados para eliminarlos o editarlos.</p>
+          <p><a href="{% url 'inicio:listar_pedido' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light">
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-archive text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Listar productos</h2>
+          <p class="grayy">Esta opción podras ver todos los productos que se podran pedir.</p>
+          <p><a href="{% url 'inicio:listar_materiales' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<!--================== INICIO PARA EL GESTOR DE AREA ==================-->
+{% if perms.app_usuarios.is_gestor_de_area %}
+<div class="container">
+  <div class="row mb-4 justify-content-center text-center">
+    <div class="col-lg-4 mb-5">
+      <h1 class="section-title-underline mb-5">
+        <span class="text-dark">Bienvenido {{request.user.roll_r}}</span>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light" >
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-plus text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Crear articulo</h2>
+          <p class="grayy">En esta opción podras crear un nuevo articulo.</p>
+          <p><a href="{% url 'inicio:crear_articulo_gestor' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light">
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-archive text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Listar productos</h2>
+          <p class="grayy">Esta opción podras ver todos los productos.</p>
+          <p><a href="{% url 'inicio:listar_materiales' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<!--================== INICIO PARA EL COORDINADOR ACADEMICO ==================-->
+{% if perms.app_usuarios.is_cordinador_academico %}
+<div class="container">
+  <div class="row mb-4 justify-content-center text-center">
+    <div class="col-lg-4 mb-5">
+      <h1 class="section-title-underline mb-5">
+        <span class="text-dark">Bienvenido {{request.user.roll_r}}</span>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light" >
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-th-list text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Pedidos recibidos</h2>
+          <p class="grayy">En esta opción podras ver los pedidos enviados por los instructores del area asignada.</p>
+          <p><a href="{% url 'inicio:listar_pedido_academico' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light">
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-archive text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Listar productos</h2>
+          <p class="grayy">Esta opción podras ver todos los productos que se podran pedir.</p>
+          <p><a href="{% url 'inicio:listar_materiales' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<!--================== INICIO PARA EL COORDINADOR MISIONAL ==================-->
+{% if perms.app_usuarios.is_coordinador_misional %}
+<div class="container">
+  <div class="row mb-4 justify-content-center text-center">
+    <div class="col-lg-4 mb-5">
+      <h1 class="section-title-underline mb-5">
+        <span class="text-dark">Bienvenido {{request.user.roll_r}}</span>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light" >
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-th-list text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Pedidos recibidos</h2>
+          <p class="grayy">En esta opción podras ver los pedidos enviados por los coordinadores academicos.</p>
+          <p><a href="{% url 'inicio:listar_pedido_misional' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light">
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-archive text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Listar productos</h2>
+          <p class="grayy">Esta opción podras ver todos los productos que se podran pedir.</p>
+          <p><a href="{% url 'inicio:listar_materiales' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if perms.app_usuarios.is_subdirector %}
+<div class="container">
+  <div class="row mb-4 justify-content-center text-center">
+    <div class="col-lg-4 mb-5">
+      <h1 class="section-title-underline mb-5">
+        <span class="text-dark">Bienvenido {{request.user.roll_r}}</span>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light" >
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-th-list text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Pedidos recibidos</h2>
+          <p class="grayy">En esta opción podras ver los pedidos enviados por los coordinadores misionales.</p>
+          <p><a href="{% url 'inicio:listar_pedido_subdirector' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light">
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-archive text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Listar productos</h2>
+          <p class="grayy">Esta opción podras ver todos los productos que se podran pedir.</p>
+          <p><a href="{% url 'inicio:listar_materiales' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% if perms.app_usuarios.is_almacenista %}
+<div class="container">
+  <div class="row mb-4 justify-content-center text-center">
+    <div class="col-lg-4 mb-5">
+      <h1 class="section-title-underline mb-5">
+        <span class="text-dark">Bienvenido {{request.user.roll_r}}</span>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light" >
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-th-list text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Pedidos recibidos</h2>
+          <p class="grayy">En esta opción podras ver los pedidos aceptados por el sub director.</p>
+          <p><a href="{% url 'inicio:listar_pedido_almacenista' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div class="feature-1 border bg-light">
+        <div class="icon-wrapper bg-success">
+          <span class="fa fa-archive text-white"></span>
+        </div>
+        <div class="feature-1-content">
+          <h2>Listar productos</h2>
+          <p class="grayy">Esta opción podras ver todos los productos que se podran pedir.</p>
+          <p><a href="{% url 'inicio:listar_materiales' %}" class="btn btn-success px-4 rounded-0">Ver</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% if not perms.app_usuarios.is_instructor and not perms.app_usuarios.is_gestor_de_area and not perms.app_usuarios.is_cordinador_academico and not perms.app_usuarios.is_coordinador_misional and not perms.app_usuarios.is_subdirector and not perms.app_usuarios.is_almacenista and not perms.app_usuarios.is_administrador %}
+  <h1 class="text-white">Usted no tiene ningun permiso asignado, porfavor contacte con el administrador acargo para que le asigne los permisos correspondientes</h1>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,100 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="menu"> <span></span> </div>
+<nav id="nav">
+<!--================== NAVBAR PARA EL INSTRUCTOR ==================-->
+		{% if perms.app_usuarios.is_instructor %}
+		<h4 class="text-light">Instructor</h4>
+		<ul class="main">
+			<li><a href="{% url 'inicio:index' %}">Inicio</a></li>
+			<li><a href="{% url 'inicio:crear_pedido' %}">Crear pedido</a></li>
+			<li><a href="{% url 'inicio:listar_pedido' %}">Pedidos asignados</a></li>
+			<li><a href="{% url 'inicio:listar_materiales' %}">Listar productos</a></li>
+			<li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+		</ul>
+		{% endif %}
+<!--================== NAVBAR PARA EL GESTOR DE AREA ==================-->
+		{% if perms.app_usuarios.is_gestor_de_area %}
+		<h4 class="text-light">Gestor de area</h4>
+		<ul class="main">
+		<li><a href="{% url 'inicio:index' %}">Inicio</a></li>
+		<li><a href="{% url 'inicio:crear_articulo_gestor' %}">Crear articulo</a></li>
+		<li><a href="{% url 'inicio:listar_materiales' %}">Listar materiales</a></li>
+		<li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+		</ul>
+		{% endif %}
+<!--================== NAVBAR PARA EL CORDINADOR ACADEMICO ==================-->
+		{% if perms.app_usuarios.is_cordinador_academico %}
+		<h4 class="text-light">Cordinador académico</h4>
+		<ul class="main">
+			<li><a href="{% url 'inicio:index' %}">Inicio</a></li>
+			<li><a href="{% url 'inicio:listar_pedido_academico' %}">Listar pedidos recibidos</a></li>
+			<li><a href="{% url 'inicio:listar_materiales' %}">Listar materiales</a></li>
+			<li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+		</ul>
+		{% endif %}
+<!--================== NAVBAR PARA EL COODINADOR MISIONAL ==================-->
+		{% if perms.app_usuarios.is_coordinador_misional %}
+		<h4 class="text-light">Cordinador misional</h4>
+		<ul class="main">
+			<li><a href="{% url 'inicio:index' %}">Inicio</a></li>
+			<li><a href="{% url 'inicio:listar_pedido_misional' %}">Listar pedidos recibidos</a></li>
+			<li><a href="{% url 'inicio:listar_materiales' %}">Listar materiales</a></li>
+			<li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+		</ul>
+		{% endif %}
+<!--================== NAVBAR PARA EL SUBDIRECTOR ==================-->
+		{% if perms.app_usuarios.is_subdirector %}
+		<h4 class="text-light">Subdirector</h4>
+		<ul class="main">
+			<li><a href="{% url 'inicio:index' %}">Inicio</a></li>
+			<li><a href="{% url 'inicio:listar_pedido_subdirector' %}">Listar pedidos recibidos</a></li>
+			<li><a href="{% url 'inicio:listar_materiales' %}">Listar materiales</a></li>
+			<li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+		</ul>
+		{% endif %}
+<!--================== NAVBAR PARA EL ALMACENISTA ==================-->
+		{% if perms.app_usuarios.is_almacenista %}
+		<h4 class="text-light">Almacenista</h4>
+		<ul class="main">
+			<li><a href="{% url 'inicio:index' %}">Inicio</a></li>
+			<li><a href="{% url 'inicio:listar_pedido_almacenista' %}">Listar pedidos recibidos</a></li>
+			<li><a href="{% url 'inicio:listar_materiales' %}">Listar materiales</a></li>
+			<li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+		</ul>
+		{% endif %}
+<!--================== NAVBAR PARA EL ADMINISTRADOR ==================-->
+		{% if perms.app_usuarios.is_administrador %}
+		<h4 class="text-light">Administrador</h4>
+		<ul class="main">
+			<li><a href="{% url 'inicio:index' %}">Inicio</a></li>
+			<li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+		</ul>
+		{% endif %}
+<!--================== NAVBAR PARA EL USUARIO SIN LOGIN ==================-->
+		{% if user.is_anonymous %}
+		<h4 class="text-light">Usuario</h4>
+		<ul class="main">
+
+			<li><a href="">Hola usuario!</a></li>
+			<li><a href="{% url 'inicio:index' %}">Inicio</a></li>
+		</ul>
+		{% endif %}
+<!--================== NAVBAR PARA EL USUARIO SIN PERMISOS ==================-->
+		{% if not perms.app_usuarios.is_instructor and not user.is_anonymous and not perms.app_usuarios.is_gestor_de_area and not perms.app_usuarios.is_cordinador_academico and not perms.app_usuarios.is_coordinador_misional and not perms.app_usuarios.is_subdirector and not perms.app_usuarios.is_almacenista and not perms.app_usuarios.is_administrador %}
+		<h4 class="text-light">No rol</h4>
+		<ul class="main">
+			<li><p>Usted no tiene ningún permiso asignado, porfavor comuníquese con el administrador de la plataforma y hágaselo saber.</p></li>
+			<li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+		</ul>
+		{% endif %}
+</nav>
+<div class="overlay"></div>
+<script>
+$('.menu, .overlay').click(function () {
+	$('.menu').toggleClass('clicked');
+
+	$('#nav').toggleClass('show');
+
+});
+</script>
