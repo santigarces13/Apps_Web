@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+{% if user.is_authenticated %}
+{% block title %}
+  index
+{% endblock title %}
+{% endif %}
+{% block content %}
+
+{% if user.is_anonymous %}
+    <form method="POST">
+      {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <div class="form-group">
+              <label for="username">Nombre Usuario</label>
+              <input class="form-control" type="text" name="username">
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input class="form-control" type="password" name="password">
+            </div>
+            <div class="form-group">
+              <input class="btn btn-primary" type="submit" value="Ingresar">
+              <a href="{% url 'password_reset' %}">Olvidela contraseña</a>
+            </div>
+          </div>
+        </div>
+    </form>
+    {% endif %}
+{% endblock content %}

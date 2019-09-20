@@ -1,0 +1,50 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<a class="btn btn-primary" href="{% url 'mascota:mascota_crear' %}">Crear nueva mascota</a>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope='col'>Folio</th>
+                <th scope='col'>Nombre</th>
+                <th scope='col'>Sexo</th>
+                <th scope='col'>Edad</th>
+                <th scope='col'>Fecha Rescate</th>
+                <th scope='col'>Adoptante</th>
+                <th scope='col'>Acciones</th>
+            </tr>
+       <thead>
+       <tbody>
+         {% if object_list %}
+            {% for mascota in object_list %}
+            <tr class="table-light">
+                <th scope='row'>{{mascota.folio}}</th>
+                <td>{{mascota.nombre}}</td>
+                <td>{{mascota.sexo}}</td>
+                <td>{{mascota.edad_aproximada}}</td>
+                <td>{{mascota.fecha_rescate}}</td>
+                <td>{{mascota.persona.nombre}}  {{mascota.persona.apellidos}}</td>
+              <td>
+                {% if perms.mascota.is_uno %}
+                <a class="btn btn-primary" href="{% url 'mascota:mascota_editar' mascota.folio %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'mascota:mascota_eliminar' mascota.folio %}">Eliminar</a>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+         {% else %}
+            <h1>No hay mascotas registradas</h1>
+
+       {% endif %}
+       </tbody>
+       </table>
+       <ul class="pager">
+         {% if page_obj.has_previous %}
+            <a class="btn btn-success" href="?page={{page_obj.previous_page_number}}">Previo</a>
+         {% endif %}
+         {% if page_obj.has_next %}
+            <a class="btn btn-success" href="?page={{page_obj.next_page_number}}">Siguiente</a>
+         {% endif %}
+       </ul>
+       <a class="btn btn-info " href="{% url 'mascota:reporte_mascota_pdf' %}">Reporte pdf</a>
+{% endblock content %}

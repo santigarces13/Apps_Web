@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.min.css' %}">
+
+    <title>
+      {% block title %}
+      {% endblock title %}
+    </title>
+  </head>
+  <body>
+    {% include "base/navbar.html" %}
+    {% block header %}
+      {% include "base/header.html" %}
+    {% endblock header %}
+    {% block content %}
+      <h5>Contenido del archivo base. </h5>
+    {% endblock content %}
+    {% block footer %}
+      <h5>Soy el footer de base</h5>
+    {% endblock footer %}
+  </body>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+</html>

@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<a class="btn btn-primary" href="{% url 'adopcion:solicitud_Crear'%}">Crear nueva solicitud</a>
+  <table class="table table-hover">
+    <div class="row">
+
+
+    <thead>
+      <tr>
+        <th scope="col">No. Solicitud</th>
+        <th scope="col">Adoptante</th>
+        <th scope="col">No. Mascota</th>
+        <th scope="col">Razones</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if object_list %}
+        {% for solicitud in object_list %}
+        <tr>
+          <td>{{solicitud.id}}</td>
+          <td>{{solicitud.persona.nombre}} {{solicitud.persona.apellidos}}</td>
+          <td>{{solicitud.numero_mascotas}}</td>
+          <td>{{solicitud.razones}}</td>
+          <td>
+            {% if perms.mascota.is_uno %}
+            <a class="btn btn-primary" href="{% url 'adopcion:solicitud_editar' solicitud.id %}">Editar</a>
+            <a class="btn btn-danger" href="{% url 'adopcion:solicitud_eliminar' solicitud.id %}">Eliminar</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <h1>No hay registros en las solicitudes.</h1>
+      {% endif %}
+    </tbody>
+  </table>
+  <ul class="pager">
+    {% if page_obj.has_previous %}
+       <a class="btn btn-success" href="?page={{page_obj.previous_page_number}}">Previo</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+       <a class="btn btn-success" href="?page={{page_obj.next_page_number}}">Siguiente</a>
+    {% endif %}
+  </ul>
+</div>
+{% endblock content %}
